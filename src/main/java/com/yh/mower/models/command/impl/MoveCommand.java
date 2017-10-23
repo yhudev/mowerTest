@@ -10,26 +10,22 @@ import com.yh.mower.models.receiver.Mower;
  *
  */
 public class MoveCommand implements Command {
-	private Mower mower;
+    private Mower mower;
 
-	/**
-	 * Constructor {@link MoveCommand}
-	 * 
-	 * @param mower
-	 */
-	public MoveCommand(Mower mower) {
-		super();
-		this.mower = mower;
-	}
+    /**
+     * Constructor {@link MoveCommand}
+     * 
+     * @param mower
+     *            binded mower
+     */
+    public MoveCommand(Mower mower) {
+        super();
+        this.mower = mower;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.yh.mower.models.command.Command#execute()
-	 */
-	@Override
-	public void execute() {
-		this.mower.move();
-	}
+    @Override
+    public void execute() {
+        this.mower.move();
+    }
 
 }

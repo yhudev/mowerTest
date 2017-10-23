@@ -15,24 +15,26 @@ import com.yh.mower.models.receiver.Mower;
  */
 public class CommandFactory {
 
-	/**
-	 * Get command according to the {@link CommandRef} type
-	 * 
-	 * @param cmd
-	 * @param mower
-	 * @return {@link Command}
-	 */
-	public Command getCommand(CommandRef cmd, Mower mower) {
-		switch (cmd) {
-		case RIGHT:
-			return new TurnRightCommand(mower);
-		case LEFT:
-			return new TurnLeftCommand(mower);
-		case STRAIGHT:
-			return new MoveCommand(mower);
-		default:
-			return null;
-		}
-	}
+    /**
+     * Get command according to the {@link CommandRef} type
+     * 
+     * @param cmd
+     *            command reference
+     * @param mower
+     *            binded mower
+     * @return command object with given type
+     */
+    public Command getCommand(CommandRef cmd, Mower mower) {
+        switch (cmd) {
+        case RIGHT:
+            return new TurnRightCommand(mower);
+        case LEFT:
+            return new TurnLeftCommand(mower);
+        case STRAIGHT:
+            return new MoveCommand(mower);
+        default:
+            return null;
+        }
+    }
 
 }

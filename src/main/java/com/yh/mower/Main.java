@@ -14,55 +14,67 @@ import com.yh.mower.models.receiver.MowerPosition;
 import com.yh.mower.models.utils.MowerExecuteInfo;
 
 /**
- * Mower main entry
+ * Mower main
  * 
  * @author huyue
  *
  */
 public class Main {
-	private static Logger LOG = LoggerFactory.getLogger(Main.class);
+    private static Logger LOG = LoggerFactory.getLogger(Main.class);
 
-	private static final String DEFAULT_FILE = "input.txt";
+    private static final String DEFAULT_FILE = "/input.txt";
 
-	/**
-	 * Main entry, allow one parameter which is the input file path
-	 * 
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		String file = Main.class.getResource(System.getProperty("file.separator") + DEFAULT_FILE).getFile();
-		if (args.length == 1)
-			file = args[0];
-		FileInputReader reader = new FileInputReader(file);
-		reader.parse();
+    /**
+     * Main entry
+     * 
+     * @param args
+     *            only one parameter allowed, throws
+     *            {@link IllegalArgumentException} if parameters more than 2
+     */
+    public static void main(String[] args) {
+        if (args.length > 1)
+            throw new IllegalArgumentException(ErrorMsg.INPUT_PARAM_ERROR.getValue());
 
-		final Main app = new Main();
-		app.excute(reader.getLines());
-	}
+        String file = Main.class.getResource(DEFAULT_FILE).getFile();
 
-	/**
-	 * Execute entry
-	 * 
-	 * @param input
-	 * @return {@link List}
-	 */
-	public List<MowerPosition> excute(List<String> input) {
-		if (input.size() < 3 || input.size() % 2 != 1) {
-			throw new IllegalArgumentException(ErrorMsg.INPUT_LINE_NUM_ERROR.getValue());
-		}
-		InputLoader loader = new InputLoader();
-		List<MowerPosition> results = new ArrayList<>();
-		loader.loadLawn(input.get(0));
-		for (int i = 1; i < input.size(); i = i + 2) {
-			loader.loadMowerAndCommand(input.get(i), input.get(i + 1));
-		}
-		CommandControl ctrl = new CommandControl();
-		for (MowerExecuteInfo mower : loader.getMowerInput()) {
-			ctrl.handle(mower.getCommands());
-			results.add(mower.getMower().getPosition());
-			// Output to console
-			LOG.info(mower.getMower().getPosition().toString());
-		}
-		return results;
-	}
+        if (args.length == 1)
+            file = args[0];
+
+        FileInputReader reader = new FileInputReader(file);
+        reader.parse();
+
+        final Main app = new Main();
+        app.excute(reader.getLines());
+    }
+
+    /**
+     * Execute entry
+     * 
+     * @param input
+     *            action lists, follow predefined format
+     * @return {@link List}
+     */
+    public List<MowerPosition> excute(List<String> input) {
+
+        if (input.size() < 3 || input.size() % 2 != 1) {
+            throw new IllegalArgumentException(ErrorMsg.INPUT_LINE_NUM_ERROR.getValue());
+        }
+
+        InputLoader loader = new InputLoader();
+        List<MowerPosition> results = new ArrayList<>();
+
+        loader.loadLawn(input.get(0));
+        for (int i = 1; i < input.size(); i = i + 2) {
+            loader.loadMowerAndCommand(input.get(i), input.get(i + 1));
+        }
+
+        CommandControl ctrl = new CommandControl();
+        for (MowerExecuteInfo mower : loader.getMowerInput()) {
+            ctrl.handle(mower.getCommands());
+            results.add(mower.getMower().getPosition());
+            // Output to console
+            LOG.info(mower.getMower().getPosition().toString());
+        }
+        return results;
+    }
 }

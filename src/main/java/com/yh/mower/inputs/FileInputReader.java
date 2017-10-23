@@ -15,40 +15,47 @@ import com.yh.mower.enums.ErrorMsg;
  *
  */
 public class FileInputReader {
-	private String filename;
-	private List<String> lines;
+    private String filename;
+    private List<String> lines;
 
-	public FileInputReader(String filename) {
-		super();
-		this.lines = new ArrayList<>();
-		this.filename = filename;
-	}
+    /**
+     * Constructor {@link FileInputReader}
+     * 
+     * @param filename
+     *            file name
+     */
+    public FileInputReader(String filename) {
+        super();
+        this.lines = new ArrayList<>();
+        this.filename = filename;
+    }
 
-	/**
-	 * @return the filename
-	 */
-	public String getFilename() {
-		return filename;
-	}
+    /**
+     * @return the filename
+     */
+    public String getFilename() {
+        return filename;
+    }
 
-	/**
-	 * @return the lines
-	 */
-	public List<String> getLines() {
-		return lines;
-	}
+    /**
+     * @return the lines
+     */
+    public List<String> getLines() {
+        return lines;
+    }
 
-	/**
-	 * Read file into lines
-	 */
-	public void parse() {
-		try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
-			String line;
-			while ((line = br.readLine()) != null) {
-				lines.add(line);
-			}
-		} catch (IOException e) {
-			throw new IllegalArgumentException(ErrorMsg.FORMAT_ERROR.getValue());
-		}
-	}
+    /**
+     * Read each line into a list, throws {@link IllegalArgumentException} for
+     * invalid file
+     */
+    public void parse() {
+        try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                lines.add(line);
+            }
+        } catch (IOException e) {
+            throw new IllegalArgumentException(ErrorMsg.FORMAT_ERROR.getValue());
+        }
+    }
 }

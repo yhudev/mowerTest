@@ -10,26 +10,22 @@ import com.yh.mower.models.receiver.Mower;
  *
  */
 public class TurnLeftCommand implements Command {
-	private Mower mower;
+    private Mower mower;
 
-	/**
-	 * Constructor {@link TurnLeftCommand}
-	 * 
-	 * @param mower
-	 */
-	public TurnLeftCommand(Mower mower) {
-		super();
-		this.mower = mower;
-	}
+    /**
+     * Constructor {@link TurnLeftCommand}
+     * 
+     * @param mower
+     *            binded mower
+     */
+    public TurnLeftCommand(Mower mower) {
+        super();
+        this.mower = mower;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.yh.mower.models.command.Command#execute()
-	 */
-	@Override
-	public void execute() {
-		this.mower.turnLeft();
-	}
+    @Override
+    public void execute() {
+        this.mower.turnLeft();
+    }
 
 }
