@@ -8,13 +8,13 @@ A program that solves lawn and mower puzzle.
  - Run Main class
  - Run MainTest class
 2. Run by jar
- ```
- mvn clean package
- ```
- Get jar in target folder.
- ```
- java -jar mower-0.0.1-SNAPSHOT.jar %file_location%
- ```
+```
+mvn clean package
+```
+Get jar in target folder.
+```
+java -jar mower-0.0.1-SNAPSHOT.jar %file_location%
+```
 #### Used libs
 * [Maven](https://maven.apache.org/)
 * [Junit](http://junit.org/junit5/)
